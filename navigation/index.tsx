@@ -3,27 +3,37 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import Icon from '@expo/vector-icons/Octicons';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {DarkTheme, DefaultTheme, NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import * as React from 'react';
-import {ColorSchemeName, Pressable} from 'react-native';
+import * as React from "react";
+import { ColorSchemeName, Pressable } from "react-native";
+import Icon from "@expo/vector-icons/Octicons";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import {
+  DarkTheme,
+  DefaultTheme,
+  NavigationContainer,
+} from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import Colors from '../constants/Colors';
-import useColorScheme from '../hooks/useColorScheme';
-import ModalScreen from '../screens/ModalScreen';
-import NotFoundScreen from '../screens/NotFoundScreen';
-import Home from '../screens/Home';
-import Search from '../screens/Search';
-import {RootStackParamList, RootTabParamList, RootTabScreenProps} from '../types';
-import LinkingConfiguration from './LinkingConfiguration';
+import Colors from "../constants/Colors";
+import useColorScheme from "../hooks/useColorScheme";
+import Home from "../screens/Home";
+import ModalScreen from "../screens/ModalScreen";
+import NotFoundScreen from "../screens/NotFoundScreen";
+import Search from "../screens/Search";
+import { RootStackParamList, RootTabParamList } from "../types";
 
-export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
+import LinkingConfiguration from "./LinkingConfiguration";
+
+export default function Navigation({
+  colorScheme,
+}: {
+  colorScheme: ColorSchemeName;
+}) {
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
-      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+    >
       <RootNavigator />
     </NavigationContainer>
   );
@@ -38,9 +48,17 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
-      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-      <Stack.Group screenOptions={{ presentation: 'modal' }}>
+      <Stack.Screen
+        name="Root"
+        component={BottomTabNavigator}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="NotFound"
+        component={NotFoundScreen}
+        options={{ title: "Oops!" }}
+      />
+      <Stack.Group screenOptions={{ presentation: "modal" }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
       </Stack.Group>
     </Stack.Navigator>
@@ -59,55 +77,61 @@ function BottomTabNavigator() {
   return (
     <BottomTab.Navigator
       initialRouteName="Home"
-      screenOptions={{
+      screenOptions={({ navigation }) => ({
         tabBarActiveTintColor: Colors[colorScheme].tint,
-      }}>
+
+        headerRight: () => (
+          <Pressable
+            onPress={() => navigation.navigate("Modal")}
+            style={({ pressed }) => ({
+              opacity: pressed ? 0.5 : 1,
+            })}
+          >
+            <Icon
+              name="gear"
+              size={24}
+              color={Colors[colorScheme].text}
+              style={{ marginRight: 16 }}
+            />
+          </Pressable>
+        ),
+        headerLeft: () => (
+          <Pressable
+            onPress={() => navigation.navigate("Modal")}
+            style={({ pressed }) => ({
+              opacity: pressed ? 0.5 : 1,
+            })}
+          >
+            <Icon
+              name="person"
+              size={24}
+              color={Colors[colorScheme].text}
+              style={{ marginLeft: 16 }}
+            />
+          </Pressable>
+        ),
+      })}
+    >
       <BottomTab.Screen
         name="Home"
         component={Home}
-        options={({ navigation }: RootTabScreenProps<'Home'>) => ({
-          title: 'Home',
-          tabBarIcon: ({ color }) => <Icon name="home" color={color} size={24} />,
-            headerLeft: () => (
-                <Pressable
-                    onPress={() => navigation.navigate('Modal')}
-                    style={({ pressed }) => ({
-                        opacity: pressed ? 0.5 : 1,
-                    })}>
-                    <Icon
-                        name="person"
-                        size={24}
-                        color={Colors[colorScheme].text}
-                        style={{ marginLeft: 16 }}
-                    />
-                </Pressable>),
-
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate('Modal')}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}>
-              <Icon
-                name="gear"
-                size={24}
-                color={Colors[colorScheme].text}
-                style={{ marginRight: 16 }}
-              />
-            </Pressable>
+        options={{
+          title: "Home",
+          tabBarIcon: ({ color }) => (
+            <Icon name="home" color={color} size={24} />
           ),
-
-        })}
+        }}
       />
       <BottomTab.Screen
         name="Search"
         component={Search}
         options={{
-          title: 'Search',
-          tabBarIcon: ({ color }) => <Icon name="search" color={color} size={24} />,
+          title: "Search",
+          tabBarIcon: ({ color }) => (
+            <Icon name="search" color={color} size={24} />
+          ),
         }}
       />
     </BottomTab.Navigator>
   );
 }
-
