@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Octicons } from "@expo/vector-icons";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+import { Event } from "nostr-tools";
 
 import { relay } from "../constants/relay";
 
@@ -31,6 +32,10 @@ export default function useInitApp() {
     }
 
     loadResourcesAndDataAsync();
+    // Close the connection when the app is unmounted
+    return () => {
+      relay.close();
+    };
   }, []);
 
   return isLoadingComplete;
