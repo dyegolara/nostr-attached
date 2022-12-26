@@ -3,7 +3,7 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import {FontAwesome} from '@expo/vector-icons';
+import Icon from '@expo/vector-icons/Octicons';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {DarkTheme, DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -18,7 +18,6 @@ import Home from '../screens/Home';
 import Search from '../screens/Search';
 import {RootStackParamList, RootTabParamList, RootTabScreenProps} from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
-import {TabBarIcon} from "../components/TabBarIcon";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -68,21 +67,36 @@ function BottomTabNavigator() {
         component={Home}
         options={({ navigation }: RootTabScreenProps<'Home'>) => ({
           title: 'Home',
-          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+          tabBarIcon: ({ color }) => <Icon name="home" color={color} size={24} />,
+            headerLeft: () => (
+                <Pressable
+                    onPress={() => navigation.navigate('Modal')}
+                    style={({ pressed }) => ({
+                        opacity: pressed ? 0.5 : 1,
+                    })}>
+                    <Icon
+                        name="person"
+                        size={24}
+                        color={Colors[colorScheme].text}
+                        style={{ marginLeft: 16 }}
+                    />
+                </Pressable>),
+
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate('Modal')}
               style={({ pressed }) => ({
                 opacity: pressed ? 0.5 : 1,
               })}>
-              <FontAwesome
-                name="info-circle"
-                size={25}
+              <Icon
+                name="gear"
+                size={24}
                 color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
+                style={{ marginRight: 16 }}
               />
             </Pressable>
           ),
+
         })}
       />
       <BottomTab.Screen
@@ -90,7 +104,7 @@ function BottomTabNavigator() {
         component={Search}
         options={{
           title: 'Search',
-          tabBarIcon: ({ color }) => <TabBarIcon name="search" color={color} />,
+          tabBarIcon: ({ color }) => <Icon name="search" color={color} size={24} />,
         }}
       />
     </BottomTab.Navigator>
