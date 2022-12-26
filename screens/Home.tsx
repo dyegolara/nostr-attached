@@ -12,13 +12,13 @@ export default function Home() {
   if (isLoading) return <Text>Loading...</Text>;
 
   return (
-    <View className="flex-1 items-center justify-center bg-white">
+    <View className="flex-1">
       <FlatList
         data={sortBy(data, "created_at").reverse()}
         renderItem={({ item }) => (
           <View className="p-4">
             <Text>{Moment(item.created_at * 1000).fromNow()}</Text>
-            <Text className="text-lg">{JSON.stringify(item.content)}</Text>
+            <Text className="text-lg">{item.content}</Text>
           </View>
         )}
       />
