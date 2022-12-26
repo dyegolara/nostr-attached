@@ -1,8 +1,9 @@
 import React from "react";
 import { FlatList, Pressable, View } from "react-native";
 import { sortBy } from "lodash";
-import Moment from "moment-timezone";
+import { Event } from "nostr-tools";
 
+import Post from "../components/Post";
 import { Text } from "../components/Themed";
 import { useEvents } from "../hooks/useEvents";
 import { RootTabScreenProps } from "../types";
@@ -14,19 +15,16 @@ export default function Home({ navigation }: RootTabScreenProps<"Home">) {
 
   return (
     <View className="flex-1 bg-white dark:bg-black">
-      <FlatList
+      <FlatList<Event>
         data={sortBy(data, "created_at").reverse()}
         renderItem={({ item }) => (
           <Pressable
-            className="p-4 border-b border-gray-500"
+            key={item.id}
             onPress={() => {
               if (item.id) navigation.navigate("Post", { eventId: item.id });
             }}
           >
-            <Text className="text-xs">
-              {Moment(item.created_at * 1000).fromNow()}
-            </Text>
-            <Text className="text-base">{item.content}</Text>
+            <Post event={item} />
           </Pressable>
         )}
       />
