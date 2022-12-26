@@ -3,6 +3,8 @@ import { Octicons } from "@expo/vector-icons";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
+import { relay } from "../constants/relay";
+
 export default function useInitApp() {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 
@@ -17,6 +19,8 @@ export default function useInitApp() {
           ...Octicons.font,
           "space-mono": require("../assets/fonts/SpaceMono-Regular.ttf"),
         });
+        // Connect to relay
+        await relay.connect();
       } catch (e) {
         // We might want to provide this error information to an error reporting service
         console.warn(e);

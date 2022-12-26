@@ -79,34 +79,29 @@ function BottomTabNavigator() {
       initialRouteName="Home"
       screenOptions={({ navigation }) => ({
         tabBarActiveTintColor: Colors[colorScheme].tint,
-
         headerRight: () => (
           <Pressable
             onPress={() => navigation.navigate("Modal")}
-            style={({ pressed }) => ({
-              opacity: pressed ? 0.5 : 1,
-            })}
+            style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}
           >
             <Icon
               name="gear"
               size={24}
               color={Colors[colorScheme].text}
-              style={{ marginRight: 16 }}
+              style={{ paddingHorizontal: 16 }}
             />
           </Pressable>
         ),
         headerLeft: () => (
           <Pressable
             onPress={() => navigation.navigate("Modal")}
-            style={({ pressed }) => ({
-              opacity: pressed ? 0.5 : 1,
-            })}
+            style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}
           >
             <Icon
               name="person"
               size={24}
               color={Colors[colorScheme].text}
-              style={{ marginLeft: 16 }}
+              style={{ paddingHorizontal: 16 }}
             />
           </Pressable>
         ),
