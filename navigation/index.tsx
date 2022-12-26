@@ -19,8 +19,9 @@ import useColorScheme from "../hooks/useColorScheme";
 import Home from "../screens/Home";
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
+import Post from "../screens/Post";
 import Search from "../screens/Search";
-import { RootStackParamList, RootTabParamList } from "../types";
+import { BottomTabParamList, RootStackParamList } from "../types";
 
 import LinkingConfiguration from "./LinkingConfiguration";
 
@@ -53,6 +54,7 @@ function RootNavigator() {
         component={BottomTabNavigator}
         options={{ headerShown: false }}
       />
+      <Stack.Screen name="Post" component={Post} options={{ title: "Post" }} />
       <Stack.Screen
         name="NotFound"
         component={NotFoundScreen}
@@ -69,7 +71,7 @@ function RootNavigator() {
  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
  * https://reactnavigation.org/docs/bottom-tab-navigator
  */
-const BottomTab = createBottomTabNavigator<RootTabParamList>();
+const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 function BottomTabNavigator() {
   const colorScheme = useColorScheme();

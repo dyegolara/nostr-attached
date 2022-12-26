@@ -64,6 +64,7 @@ module.exports = {
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "require-await": "error",
+    semi: "off",
     "simple-import-sort/exports": "error",
     "simple-import-sort/imports": [
       "error",
