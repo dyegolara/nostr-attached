@@ -14,11 +14,11 @@ export default function Post({ route }: RootStackScreenProps<"Post">) {
   if (isLoading || !event) return <Text>Loading...</Text>;
 
   return (
-    <View className="flex-1">
-      <Text className="text-xs">
+    <View className="flex-1 bg-white dark:bg-black p-4">
+      <Text className="text-xs text-base dark:text-white">
         {Moment(event.created_at * 1000).fromNow()}
       </Text>
-      <Text className="text-base">{event.content}</Text>
+      <Text className="text-base dark:text-white">{event.content}</Text>
     </View>
   );
 }

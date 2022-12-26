@@ -13,7 +13,7 @@ export default function Home({ navigation }: RootTabScreenProps<"Home">) {
   if (isLoading) return <Text>Loading...</Text>;
 
   return (
-    <View className="flex-1">
+    <View className="flex-1 bg-white dark:bg-black">
       <FlatList
         data={sortBy(data, "created_at").reverse()}
         renderItem={({ item }) => (
