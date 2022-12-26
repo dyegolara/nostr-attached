@@ -1,6 +1,6 @@
 import React from "react";
-import { FlatList, View } from "react-native";
-import { sortBy } from "lodash";
+import { FlatList, Pressable, View } from "react-native";
+import { noop, sortBy } from "lodash";
 import Moment from "moment-timezone";
 
 import { Text } from "../components/Themed";
@@ -16,10 +16,12 @@ export default function Home() {
       <FlatList
         data={sortBy(data, "created_at").reverse()}
         renderItem={({ item }) => (
-          <View className="p-4">
-            <Text>{Moment(item.created_at * 1000).fromNow()}</Text>
-            <Text className="text-lg">{item.content}</Text>
-          </View>
+          <Pressable className="p-4 border-b border-gray-500" onPress={noop}>
+            <Text className="text-xs">
+              {Moment(item.created_at * 1000).fromNow()}
+            </Text>
+            <Text className="text-base">{item.content}</Text>
+          </Pressable>
         )}
       />
     </View>
