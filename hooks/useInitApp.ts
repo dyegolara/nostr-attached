@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import { Octicons } from "@expo/vector-icons";
+import { decode, encode } from "base-64";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import { Event } from "nostr-tools";
 
 import { relay } from "../constants/relay";
+
+// Polyfill for base64
+if (!global.btoa) global.btoa = encode;
+if (!global.atob) global.atob = decode;
 
 export default function useInitApp() {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
