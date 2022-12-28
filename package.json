@@ -32,7 +32,7 @@
     "lodash": "^4.17.21",
     "moment-timezone": "^0.5.40",
     "nativewind": "^2.0.11",
-    "nostr-tools": "^1.0.1",
+    "nostr-react": "^0.5.1",
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "react-native": "0.70.5",

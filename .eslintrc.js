@@ -61,6 +61,7 @@ module.exports = {
     "prefer-destructuring": "warn",
     "prettier/prettier": "error",
     "react/jsx-no-leaked-render": "error",
+    "react/react-in-jsx-scope": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "require-await": "error",
