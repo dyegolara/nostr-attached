@@ -1,6 +1,5 @@
 import React from "react";
 import { FlatList, Pressable, View } from "react-native";
-import { sortBy } from "lodash";
 import Moment from "moment-timezone";
 import { dateToUnix, useNostrEvents } from "nostr-react";
 import { Event, Kind } from "nostr-tools";
@@ -22,7 +21,7 @@ export default function Home({ navigation }: RootTabScreenProps<"Home">) {
   return (
     <View className="flex-1 bg-white dark:bg-black">
       <FlatList<Event>
-        data={sortBy(events, "created_at").reverse()}
+        data={events}
         renderItem={({ item }) => (
           <Pressable
             key={item.id}
