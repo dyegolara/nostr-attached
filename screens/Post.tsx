@@ -1,19 +1,19 @@
 import React from "react";
 import { Text } from "react-native";
+import { useNostrEvents } from "nostr-react";
 
 import PostComponent from "../components/Post";
-import { useEvent } from "../hooks/useEvents";
 import { RootStackScreenProps } from "../types";
 
 export default function Post({ route }: RootStackScreenProps<"Post">) {
   const { eventId } = route.params;
-  const { data: event, isLoading } = useEvent(eventId);
+  const { events, isLoading } = useNostrEvents({ filter: { ids: [eventId] } });
 
-  if (isLoading || !event) return <Text>Loading...</Text>;
+  if (isLoading || !events.length) return <Text>Loading...</Text>;
 
   return (
     <>
-      <PostComponent event={event} />
+      <PostComponent event={events[0]} />
       {/* Replies */}
     </>
   );
