@@ -3,6 +3,7 @@ import "text-encoding";
 import React from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { polyfillWebCrypto } from "expo-standard-web-crypto";
 import { StatusBar } from "expo-status-bar";
 import { NostrProvider } from "nostr-react";
 
@@ -10,6 +11,8 @@ import { DEFAULT_RELAYS } from "./constants/relay";
 import useColorScheme from "./hooks/useColorScheme";
 import useInitApp from "./hooks/useInitApp";
 import Navigation from "./navigation";
+
+polyfillWebCrypto();
 
 const queryClient = new QueryClient({
   defaultOptions: {
